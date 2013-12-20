@@ -50,15 +50,21 @@ class Process_Monitor:
             # One of detected values - ps itself. Second - NRPE
             # launcher, that must not be counted.
             count -= 2
-                
+        
+        # Alert name replacer.
+        if self.args.ALERT_NAME:
+            alert_name = self.args.ALERT_NAME.upper()
+        else:
+            alert_name = opt.upper()
+        
         if count <= CRIT_VALUE:
-            print(opt.upper() + " CRITICAL: {0} instances running".format(count))
+            print(alert_name + " CRITICAL: {0} instances running".format(count))
             exit(2)
         elif count > CRIT_VALUE and count <= WARN_VALUE:
-            print(opt.upper() + " WARNING: {0} instances running".format(count))
+            print(alert_name + " WARNING: {0} instances running".format(count))
             exit(1)
         else:
-            print(opt.upper() + " OK: {0} instances running".format(count))
+            print(alert_name + " OK: {0} instances running".format(count))
             exit(0)
         
     def parse_args(self):
@@ -70,6 +76,7 @@ class Process_Monitor:
         opts.add_argument("-o", help="Process parameter", metavar="PROCESSPARAM", action="store", dest="PARM")
         opts.add_argument("-w", help="Warning value", metavar="WARN_VALUE", action="store", dest="WARNING")
         opts.add_argument("-c", help="Critical value", metavar="CRIT_VALUE", action="store", dest="CRITICAL")
+        opts.add_argument("-n", help="Alert name", metavar="ALERT_NAME", action="store", dest="ALERT_NAME")
         self.args = opts.parse_args()
         
 if __name__ == "__main__":
