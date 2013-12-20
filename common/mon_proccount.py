@@ -38,7 +38,7 @@ class Process_Monitor:
                 if process.name == self.args.PROCESS:
                     count += 1
         
-        if self.args.PARM:
+        elif self.args.PARM:
             opt = self.args.PARM
             p = subprocess.Popen(["ps", "ax"], stdout = subprocess.PIPE)
             data = p.communicate()[0]
@@ -47,8 +47,9 @@ class Process_Monitor:
                 if self.args.PARM in item:
                     count += 1
                     
-            # One of detected values - ps itself.
-            count -= 1
+            # One of detected values - ps itself. Second - NRPE
+            # launcher, that must not be counted.
+            count -= 2
                 
         if count <= CRIT_VALUE:
             print(opt.upper() + " CRITICAL: {0} instances running".format(count))
@@ -66,7 +67,7 @@ class Process_Monitor:
         """
         opts = argparse.ArgumentParser(description='Process count monitor', epilog="Monitor processes by count.")
         opts.add_argument("-p", help="Process name", metavar="PROCESSNAME", action="store", dest="PROCESS")
-        opts.add_argument("-o", help="Process parameter", metavar="PROCESSNAME", action="store", dest="PARM")
+        opts.add_argument("-o", help="Process parameter", metavar="PROCESSPARAM", action="store", dest="PARM")
         opts.add_argument("-w", help="Warning value", metavar="WARN_VALUE", action="store", dest="WARNING")
         opts.add_argument("-c", help="Critical value", metavar="CRIT_VALUE", action="store", dest="CRITICAL")
         self.args = opts.parse_args()
