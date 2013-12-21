@@ -48,7 +48,7 @@ class Process_Monitor:
         if self.args.PROCESS:
             opt = self.args.PROCESS
             for process in psutil.process_iter():
-                if process.name == self.args.PROCESS:
+                if process.name == self.args.PROCESS and not "mon_proccount" in item:
                     count += 1
         
         elif self.args.PARM:
@@ -57,13 +57,13 @@ class Process_Monitor:
             data = p.communicate()[0]
             data = str(data).split(r"\n")
             for item in data:
-                if self.args.PARM in item:
+                if self.args.PARM in item and not "mon_proccount" in item:
                     #print(item)
                     count += 1
                     
-        # One of detected values - NRPE launcher, that must not
-        # be counted.
-        count -= 1
+            # One of detected values - NRPE launcher, that must not
+            # be counted.
+            count -= 1
         
         # Alert name replacer.
         if self.args.ALERT_NAME:
