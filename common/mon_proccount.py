@@ -58,11 +58,12 @@ class Process_Monitor:
             data = str(data).split(r"\n")
             for item in data:
                 if self.args.PARM in item:
+                    print(item)
                     count += 1
                     
-            # One of detected values - ps itself. Second - NRPE
-            # launcher, that must not be counted.
-            count -= 2
+            # One of detected values - NRPE launcher, that must not
+            # be counted.
+            count -= 1
         
         # Alert name replacer.
         if self.args.ALERT_NAME:
