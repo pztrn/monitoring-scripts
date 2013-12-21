@@ -63,7 +63,7 @@ class Process_Monitor:
                     
             # One of detected values - NRPE launcher, that must not
             # be counted.
-            count -= 1
+            #count -= 1
         
         # Alert name replacer.
         if self.args.ALERT_NAME:
