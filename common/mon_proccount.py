@@ -58,7 +58,7 @@ class Process_Monitor:
             data = str(data).split(r"\n")
             for item in data:
                 if self.args.PARM in item:
-                    print(item)
+                    #print(item)
                     count += 1
                     
             # One of detected values - NRPE launcher, that must not
