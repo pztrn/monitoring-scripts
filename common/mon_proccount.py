@@ -48,7 +48,7 @@ class Process_Monitor:
         if self.args.PROCESS:
             opt = self.args.PROCESS
             for process in psutil.process_iter():
-                if process.name == self.args.PROCESS and not "mon_proccount" in item:
+                if process.name == self.args.PROCESS and not "mon_proccount" in process.name:
                     count += 1
         
         elif self.args.PARM:
