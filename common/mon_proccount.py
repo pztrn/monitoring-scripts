@@ -17,18 +17,31 @@ except:
 
 class Process_Monitor:
     def __init__(self):
+        # Warning may not be needed.
+        do_warnings = False
+        # Critical may not be needed.
+        do_criticals = False
+        
         self.parse_args()
-        try:
-            WARN_VALUE = int(self.args.WARNING)
-        except:
-            print("Warning value must be an integer!")
-            exit(10)
+        if self.args.WARNING:
+            do_warnings = True
+            try:
+                WARN_VALUE = int(self.args.WARNING)
+            except:
+                print("Warning value must be an integer!")
+                exit(10)
+            # We should force CRIT_VALUE as 0.
+            # For fuck's sake.
+            CRIT_VALUE = 0
             
-        try:
-            CRIT_VALUE = int(self.args.CRITICAL)
-        except:
-            print("Critical value must be an integer!")
-            exit(10)
+        if self.args.CRITICAL:
+            do_criticals = True
+            try:
+                CRIT_VALUE = int(self.args.CRITICAL)
+            except:
+                print("Critical value must be an integer!")
+                exit(10)
+                
         # Process name to count.
         # Counting process instances.
         count = 0
@@ -57,10 +70,10 @@ class Process_Monitor:
         else:
             alert_name = opt.upper()
         
-        if count <= CRIT_VALUE:
+        if do_criticals and count <= CRIT_VALUE:
             print(alert_name + " CRITICAL: {0} instances running".format(count))
             exit(2)
-        elif count > CRIT_VALUE and count <= WARN_VALUE:
+        elif do_warnings and count > CRIT_VALUE and count <= WARN_VALUE:
             print(alert_name + " WARNING: {0} instances running".format(count))
             exit(1)
         else:
