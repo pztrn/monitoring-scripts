@@ -73,10 +73,16 @@ class Process_Monitor:
             
         # Iterating thru processes to get them counted.
         for item in data:
-            if self.args.PROCESS_ONE in item and not "mon_proccountdiff" in item:
-                count_proc1 += 1
-            elif self.args.PROCESS_TWO in item and not "mon_proccountdiff" in item:
-                count_proc2 += 1
+            if self.args.PSUTIL:
+                if self.args.PROCESS_ONE == item and not "mon_proccountdiff" in item:
+                    count_proc1 += 1
+                elif self.args.PROCESS_TWO == item and not "mon_proccountdiff" in item:
+                    count_proc2 += 1
+            else:
+                if self.args.PROCESS_ONE in item and not "mon_proccountdiff" in item:
+                    count_proc1 += 1
+                elif self.args.PROCESS_TWO in item and not "mon_proccountdiff" in item:
+                    count_proc2 += 1
         
         # Getting difference.
         diff = count_proc1 - count_proc2
