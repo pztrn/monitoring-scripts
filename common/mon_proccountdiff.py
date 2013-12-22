@@ -84,7 +84,7 @@ class Process_Monitor:
         if do_criticals and diff <= CRIT_VALUE:
             print(alert_name + " CRITICAL: difference is {0} ({1} - {2}, {3} - {4})".format(diff, self.args.PROCESS_ONE, count_proc1, self.args.PROCESS_TWO, count_proc2))
             exit(2)
-        elif do_warnings and diff > CRIT_VALUE and diff <= WARN_VALUE:
+        elif do_warnings and diff < CRIT_VALUE and diff >= WARN_VALUE:
             print(alert_name + " WARNING: difference is {0} ({1} - {2}, {3} - {4})".format(diff, self.args.PROCESS_ONE, count_proc1, self.args.PROCESS_TWO, count_proc2))
             exit(1)
         else:
