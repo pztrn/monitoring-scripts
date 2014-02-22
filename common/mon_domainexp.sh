@@ -45,7 +45,7 @@ function help() {
     echo "Domain expiration checker for Nagios/Icinga.
 Checks domains in these zones:
 
-    ru
+    org, ru
 
 Usage:
     mon_domainexp.sh [domain] [warn] [crit]
