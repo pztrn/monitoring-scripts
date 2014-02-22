@@ -14,6 +14,8 @@ function get_info() {
         expire=`echo $domaininfo | grep "paid-till:"| awk -F"till:" '{print $2}' | cut -d " " -f 2`
     elif [ $zone == "org" ]; then
         expire=`echo $domaininfo | awk {' print $15 '} | cut -d "T" -f 1`
+    elif [ $zone == "so" ]; then
+        expire=`echo $domaininfo | awk {' print $11 '} | cut -d ":" -f 2 | cut -d "T" -f 1`
     fi
 }
 
@@ -45,7 +47,7 @@ function help() {
     echo "Domain expiration checker for Nagios/Icinga.
 Checks domains in these zones:
 
-    org, ru
+    org, ru, so
 
 Usage:
     mon_domainexp.sh [domain] [warn] [crit]
