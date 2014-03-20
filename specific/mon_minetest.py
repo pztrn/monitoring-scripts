@@ -2,7 +2,7 @@
 
 # Minetest monitoring script.
 # Part of pztrn's Icinga additions.
-# Copyright (c) 2013, Stanislav N. aka pztrn
+# Copyright (c) 2013 - 2014, Stanislav N. aka pztrn
 
 # Log file
 logfile = "/data/programs/minetest/logs/minetest_restarts.log"

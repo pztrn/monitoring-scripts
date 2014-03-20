@@ -2,7 +2,7 @@
 
 # Domain expiration checker.
 # Part of pztrn's Icinga additions.
-# Copyright (c) 2013-2014, Stanislav N. aka pztrn
+# Copyright (c) 2013 - 2014, Stanislav N. aka pztrn
 
 # Getting domain information.
 function get_info() {

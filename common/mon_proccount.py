@@ -5,7 +5,6 @@
 # Part of pztrn's Icinga additions.
 # Copyright (c) 2013, Stanislav N. aka pztrn
 
-import sys
 import argparse
 import subprocess
 

@@ -3,7 +3,7 @@
 
 # Monitoring script for processes count.
 # Part of pztrn's Icinga additions.
-# Copyright (c) 2013, Stanislav N. aka pztrn
+# Copyright (c) 2013 - 2014, Stanislav N. aka pztrn
 
 import sys
 import argparse
