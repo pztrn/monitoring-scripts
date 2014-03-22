@@ -62,8 +62,8 @@ class MySQL_Table_Size_Monitor:
         opts.add_argument("-u", help="MySQL user", metavar="USER", action="store", dest="USER")
         opts.add_argument("-p", help="MySQL password", metavar="PASSWORD", action="store", dest="PASSWORD")
         opts.add_argument("-d", help="Database name", metavar="DATABASE", action="store", dest="DATABASE")
-        opts.add_argument("-w", help="Warning value", metavar="WARN_VALUE", action="store", dest="WARNING")
-        opts.add_argument("-c", help="Critical value", metavar="CRIT_VALUE", action="store", dest="CRITICAL")
+        opts.add_argument("-w", help="Warning value (default - 100)", metavar="WARN_VALUE", action="store", dest="WARNING", nargs='?', const=1, type=int, default=100)
+        opts.add_argument("-c", help="Critical value (default - 150)", metavar="CRIT_VALUE", action="store", dest="CRITICAL", nargs='?', const=1, type=int, default=150)
         opts.add_argument("-n", help="Alert name", metavar="ALERT_NAME", action="store", dest="ALERT_NAME")
         self.args = opts.parse_args()
 
