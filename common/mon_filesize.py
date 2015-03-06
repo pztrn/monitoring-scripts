@@ -39,12 +39,12 @@ class File_Size_Monitor:
         message and exitcode.
         """
         if self.human_readable < self.args.WARNING:
-            print("{0} OK: {1} size is {2} Mbytes".format(self.alert_name, self.args.FILE, self.human_readable))
+            print("{0} OK - {1} size is {2} Mbytes".format(self.alert_name, self.args.FILE, self.human_readable))
         elif self.human_readable >= self.args.WARNING and self.human_readable <= self.args.CRITICAL:
-            print("{0} WARNING: {1} size is {2} Mbytes".format(self.alert_name, self.args.FILE, self.human_readable))
+            print("{0} WARNING - {1} size is {2} Mbytes".format(self.alert_name, self.args.FILE, self.human_readable))
             exit(1)
         elif self.human_readable >= self.args.CRITICAL:
-            print("{0} CRITICAL: {1} size is {2} Mbytes".format(self.alert_name, self.args.FILE, self.human_readable))
+            print("{0} CRITICAL - {1} size is {2} Mbytes".format(self.alert_name, self.args.FILE, self.human_readable))
             exit(2)
             
     def humanize_bytes(self, bytes):
