@@ -17,8 +17,12 @@ function get_info() {
     elif [ $zone == "so" ]; then
         expire=`echo $domaininfo | awk {' print $11 '} | cut -d ":" -f 2 | cut -d "T" -f 1`
     elif [ $zone == "com" ]; then
-        #echo $domaininfo
-        expire=`echo -e ${domaininfo} | grep "Registrar Registration Expiration" | awk {' print $448 '} | cut -d "T" -f 1`
+        expire=`echo -e ${domaininfo} | awk {' print $448 '} | cut -d "T" -f 1`
+    elif [ $zone == "biz" ]; then
+        expire_year=`echo ${domaininfo} | awk {' print $245 '}`
+        expire_mon=`echo ${domaininfo} | awk {' print $241 '} | awk {' print tolower($0) '}`
+        expire_day=`echo ${domaininfo} | awk {' print $242 '}`
+        expire=`LC_ALL=C date -d "${expire_mon} ${expire_day} ${expire_year}" -u +"%Y-%m-%d"`
     else
         echo "Unsupported zone: ${zone}"
         exit 3
@@ -54,7 +58,7 @@ function help() {
     echo "Domain expiration checker for Nagios/Icinga.
 Checks domains in these zones:
 
-    com, org, ru, so
+    biz, com, org, ru, so
 
 Usage:
     mon_domainexp.sh [domain] [warn] [crit]
