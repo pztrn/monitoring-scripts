@@ -19,7 +19,6 @@ function get_info() {
     elif [ $zone == "com" ]; then
         #echo $domaininfo
         expire=`echo -e ${domaininfo} | grep "Registrar Registration Expiration" | awk {' print $448 '} | cut -d "T" -f 1`
-        echo $expire
     else
         echo "Unsupported zone: ${zone}"
         exit 3
