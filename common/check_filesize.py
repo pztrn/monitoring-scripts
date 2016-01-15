@@ -4,7 +4,7 @@
 # Filesize checker for Icinga/Nagios.
 # Checks for file size.
 # Part of pztrn's Icinga additions.
-# Copyright (c) 2013 - 2014, Stanislav N. aka pztrn
+# Copyright (c) 2013 - 2016, Stanislav N. aka pztrn
 
 import argparse
 import os
@@ -13,16 +13,16 @@ class File_Size_Monitor:
     def __init__(self):
         # Human_readable value in megabytes.
         self.human_readable = 0
-        
+
         self.parse_args()
-        
+
         self.alert_name = "File Size".upper()
         if self.args.ALERT_NAME:
             self.alert_name = self.args.ALERT_NAME.upper()
-        
+
         self.check_size()
         self.compare_sizes()
-        
+
     def check_size(self):
         """
         Checks size of file.
@@ -32,7 +32,7 @@ class File_Size_Monitor:
         else:
             print("No file specified")
             exit(2)
-            
+
     def compare_sizes(self):
         """
         Compare sizes against given values and return approriate
@@ -46,7 +46,7 @@ class File_Size_Monitor:
         elif self.human_readable >= self.args.CRITICAL:
             print("{0} CRITICAL - {1} size is {2} Mbytes".format(self.alert_name, self.args.FILE, self.human_readable))
             exit(2)
-            
+
     def humanize_bytes(self, bytes):
         """
         Make bytes quantity be human-readable.
@@ -55,7 +55,7 @@ class File_Size_Monitor:
             bytes = int(bytes / 1024)
             if bytes > 1024:
                 bytes = int(bytes / 1024)
-                
+
         # At this point we got megabytes, so we are returning it.
         return bytes
 

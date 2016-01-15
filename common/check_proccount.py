@@ -3,7 +3,7 @@
 
 # Monitoring script for processes count.
 # Part of pztrn's Icinga additions.
-# Copyright (c) 2013, Stanislav N. aka pztrn
+# Copyright (c) 2013 - 2016, Stanislav N. aka pztrn
 
 import argparse
 import subprocess
@@ -20,7 +20,7 @@ class Process_Monitor:
         do_warnings = False
         # Critical may not be needed.
         do_criticals = False
-        
+
         self.parse_args()
         if self.args.WARNING:
             do_warnings = True
@@ -32,7 +32,7 @@ class Process_Monitor:
             # We should force CRIT_VALUE as 0.
             # For fuck's sake.
             CRIT_VALUE = 0
-            
+
         if self.args.CRITICAL:
             do_criticals = True
             try:
@@ -40,7 +40,7 @@ class Process_Monitor:
             except:
                 print("Critical value must be an integer!")
                 exit(10)
-                
+
         # Process name to count.
         # Counting process instances.
         count = 0
@@ -49,7 +49,7 @@ class Process_Monitor:
             for process in psutil.process_iter():
                 if process.name == self.args.PROCESS and not "mon_proccount" in process.name:
                     count += 1
-        
+
         elif self.args.PARM:
             opt = self.args.PARM
             p = subprocess.Popen(["ps", "ax"], stdout = subprocess.PIPE)
@@ -59,13 +59,13 @@ class Process_Monitor:
                 if self.args.PARM in item and not "mon_proccount" in item:
                     #print(item)
                     count += 1
-        
+
         # Alert name replacer.
         if self.args.ALERT_NAME:
             alert_name = self.args.ALERT_NAME.upper()
         else:
             alert_name = opt.upper()
-        
+
         if do_criticals and count <= CRIT_VALUE:
             print(alert_name + " CRITICAL: {0} instances running".format(count))
             exit(2)
@@ -75,7 +75,7 @@ class Process_Monitor:
         else:
             print(alert_name + " OK: {0} instances running".format(count))
             exit(0)
-        
+
     def parse_args(self):
         """
         Parse commandline arguments
@@ -87,6 +87,6 @@ class Process_Monitor:
         opts.add_argument("-c", help="Critical value", metavar="CRIT_VALUE", action="store", dest="CRITICAL")
         opts.add_argument("-n", help="Alert name", metavar="ALERT_NAME", action="store", dest="ALERT_NAME")
         self.args = opts.parse_args()
-        
+
 if __name__ == "__main__":
     Process_Monitor()
